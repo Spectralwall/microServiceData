@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Topic {
+public class topic {
 
     private String nome;
 
@@ -14,7 +14,7 @@ public class Topic {
 
     private ArrayList<registrazione> listRegistrazioni;
 
-    public Topic(String name){
+    public topic(String name){
         this.creationDate = LocalDate.now();
         this.nome = name;
         listRegistrazioni = new ArrayList<>();

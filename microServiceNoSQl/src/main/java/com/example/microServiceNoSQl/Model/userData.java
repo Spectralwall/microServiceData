@@ -23,7 +23,7 @@ public class userData {
 
     private Long idUser;
 
-    private ArrayList<Topic> topicList;
+    private ArrayList<topic> topicList;
 
     public userData(Long Userid){
         this.idUser = Userid;
@@ -34,7 +34,7 @@ public class userData {
         this.idUser = idUser;
     }
 
-    public void setTopicList(ArrayList<Topic> topicList) {
+    public void setTopicList(ArrayList<topic> topicList) {
         this.topicList = topicList;
     }
 
@@ -46,7 +46,7 @@ public class userData {
         return idUser;
     }
 
-    public ArrayList<Topic> getTopicList() {
+    public ArrayList<topic> getTopicList() {
         return topicList;
     }
 
