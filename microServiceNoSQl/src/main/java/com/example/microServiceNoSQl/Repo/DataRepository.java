@@ -6,6 +6,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.Optional;
 
 public interface DataRepository extends MongoRepository<userData,String> {
-
+        //Optional<userData> findStudentByIdUser(String idUser);
 }
 

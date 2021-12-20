@@ -5,6 +5,8 @@ import com.example.microServiceNoSQl.Model.Utilities.newTopic;
 import com.example.microServiceNoSQl.Model.topic;
 import com.example.microServiceNoSQl.Model.userData;
 import com.example.microServiceNoSQl.Repo.DataRepository;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -21,6 +23,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v2")
+@NoArgsConstructor
 public class dataController {
 
     @Autowired
@@ -28,7 +31,8 @@ public class dataController {
     @Autowired
     MongoTemplate mongoTemplate;
 
-    @GetMapping(value = "data")
+
+    @PostMapping(value = "data")
     public List<userData> all(){
         System.out.println("all user");
         return dataRepository.findAll();
@@ -38,7 +42,6 @@ public class dataController {
     @PostMapping(value = "/data/newuser")
     public ResponseEntity<String> create(@RequestBody String userId){
         System.out.println("New user --------- document");
-        System.out.println(userId);
         userData newUser = new userData(userId);
         dataRepository.save(newUser);
         return new ResponseEntity<>("document Create", HttpStatus.OK);
@@ -60,6 +63,7 @@ public class dataController {
         userData a = tmp.get(0);
         return new ResponseEntity<>(a, HttpStatus.OK);
     }
+
 
     //aggiunge un nuovo documento per un utente
     @PostMapping(value = "/data/newTopic")
