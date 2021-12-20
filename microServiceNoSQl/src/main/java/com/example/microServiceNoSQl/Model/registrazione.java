@@ -1,6 +1,7 @@
 package com.example.microServiceNoSQl.Model;
 
 import com.example.microServiceNoSQl.Model.Interface.sourceDataInterface;
+import com.example.microServiceNoSQl.Model.Utilities.dataInfoPair;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -10,30 +11,34 @@ public class registrazione {
 
     private LocalDate creationDate;
 
-    private ArrayList<sourceDataInterface> listaDati;
+    private ArrayList<dataInfoPair> typeNameRegistration;
 
-    public registrazione(ArrayList<sourceDataInterface> val){
+    public registrazione(ArrayList<dataInfoPair> val){
         this.creationDate = LocalDate.now();
-        this.listaDati = val;
+        this.typeNameRegistration = val;
     }
 
-    public void setListaDati(ArrayList<sourceDataInterface> listaDati) {
-        this.listaDati = listaDati;
-    }
-
-    public ArrayList<sourceDataInterface> getListaDati() {
-        return listaDati;
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
     }
 
     public LocalDate getCreationDate() {
         return creationDate;
     }
 
+    public ArrayList<dataInfoPair> getTypeNameRegistration() {
+        return typeNameRegistration;
+    }
+
+    public void setTypeNameRegistration(ArrayList<dataInfoPair> typeNameRegistration) {
+        this.typeNameRegistration = typeNameRegistration;
+    }
+
     @Override
     public String toString() {
         return "registrazione{" +
                 "creationDate=" + creationDate +
-                ", listaDati=" + listaDati +
+                ", listaDati=" + typeNameRegistration +
                 '}';
     }
 }

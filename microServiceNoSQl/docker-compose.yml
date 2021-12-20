@@ -14,6 +14,7 @@ services:
       - MONGO_INITDB_DATABASE=dataHub
     networks:
       - MONGO
+
 volumes:
   data : {}
 networks:
