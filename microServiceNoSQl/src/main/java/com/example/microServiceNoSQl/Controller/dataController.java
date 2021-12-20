@@ -13,9 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /*
  * classe che fungera da controller per le chiamate del sito relative hai dati
@@ -32,13 +30,15 @@ public class dataController {
 
     @GetMapping(value = "data")
     public List<userData> all(){
+        System.out.println("all user");
         return dataRepository.findAll();
     }
 
     //aggiunge un nuovo documento per un utente
-    @PostMapping(value = "/data/newUser")
-    public ResponseEntity<String> create(@RequestAttribute Long userId){
-        System.out.println("New user --> document");
+    @PostMapping(value = "/data/newuser")
+    public ResponseEntity<String> create(@RequestBody String userId){
+        System.out.println("New user --------- document");
+        System.out.println(userId);
         userData newUser = new userData(userId);
         dataRepository.save(newUser);
         return new ResponseEntity<>("document Create", HttpStatus.OK);
@@ -46,7 +46,7 @@ public class dataController {
 
     //dato l'id dell'utente ritorna il suo documento
     @PostMapping(value = "/data/document")
-    public ResponseEntity<userData> document(@RequestAttribute Long userId){
+    public ResponseEntity<userData> document(@RequestBody String userId){
         System.out.println("Return document");
         Query query = new Query();
         query.addCriteria(Criteria.where("idUser").is(userId));
@@ -63,10 +63,19 @@ public class dataController {
 
     //aggiunge un nuovo documento per un utente
     @PostMapping(value = "/data/newTopic")
-    public ResponseEntity<String> newTopic(@RequestAttribute newTopic val){
-        userData tmp = dataRepository.findById(val.getId()).get();
-        tmp.getTopicList().add(new topic(val.getName(), val.getDescription(), val.getCreationDate(), val.getColor(), val.getNameType()));
-        dataRepository.save(tmp);
+    public ResponseEntity<String> newTopic(@RequestBody newTopic val){
+        Query query = new Query();
+        query.addCriteria(Criteria.where("idUser").is(val.getId()));
+        List<userData> tmp = mongoTemplate.find(query,userData.class);
+        if(tmp.size() > 1){
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        }
+        if (tmp.isEmpty()){
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        }
+        userData a = tmp.get(0);
+        a.getTopicList().add(new topic(val.getName(), val.getDescription(), val.getColor(), val.getNameType()));
+        dataRepository.save(a);
         return new ResponseEntity<>("topic add", HttpStatus.OK);
     }
     

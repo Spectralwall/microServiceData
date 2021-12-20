@@ -25,10 +25,10 @@ public class topic {
 
     private ArrayList<registrazione> listRegistrazioni;//lista di future registrazioni
 
-    public topic(String name,String description, LocalDate data, ArrayList<String> colors,ArrayList<dataInfoPair> nameType){
+    public topic(String name,String description, ArrayList<String> colors,ArrayList<dataInfoPair> nameType){
         this.name = name;
         this.description = description;
-        this.creationDate = data;
+        this.creationDate = LocalDate.now();
         this.nameType = nameType;
         this.color = colors;
         listRegistrazioni = new ArrayList<>();

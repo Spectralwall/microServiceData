@@ -13,8 +13,6 @@ public class newTopic {
 
     private String description;
 
-    private LocalDate creationDate;//data di creazione
-
     private ArrayList<dataInfoPair> nameType;
 
     private ArrayList<String> color;
@@ -25,10 +23,6 @@ public class newTopic {
 
     public String getDescription() {
         return description;
-    }
-
-    public LocalDate getCreationDate() {
-        return creationDate;
     }
 
     public ArrayList<String> getColor() {

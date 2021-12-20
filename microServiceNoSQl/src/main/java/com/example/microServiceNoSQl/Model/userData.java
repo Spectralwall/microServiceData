@@ -21,16 +21,16 @@ public class userData {
     @Id
     private String id;
 
-    private Long idUser;
+    private String idUser;
 
     private ArrayList<topic> topicList;
 
-    public userData(Long Userid){
+    public userData(String Userid){
         this.idUser = Userid;
         this.topicList = new ArrayList<>();
     }
 
-    public void setIdUser(Long idUser) {
+    public void setIdUser(String idUser) {
         this.idUser = idUser;
     }
 
@@ -42,7 +42,7 @@ public class userData {
         return id;
     }
 
-    public Long getIdUser() {
+    public String getIdUser() {
         return idUser;
     }
 
@@ -54,7 +54,7 @@ public class userData {
     public String toString() {
         return "Topic{" +
                 "id='" + id + '\'' +
-                ", idUser=" + idUser.toString() +
+                ", idUser=" + idUser +
                 ", topicList =" + topicList +
                 '}';
     }

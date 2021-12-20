@@ -11,9 +11,9 @@ public class registrazione {
 
     private LocalDate creationDate;
 
-    private ArrayList<dataInfoPair> typeNameRegistration;
+    private ArrayList<sourceDataInterface> typeNameRegistration;
 
-    public registrazione(ArrayList<dataInfoPair> val){
+    public registrazione(ArrayList<sourceDataInterface> val){
         this.creationDate = LocalDate.now();
         this.typeNameRegistration = val;
     }
@@ -26,11 +26,11 @@ public class registrazione {
         return creationDate;
     }
 
-    public ArrayList<dataInfoPair> getTypeNameRegistration() {
+    public ArrayList<sourceDataInterface> getTypeNameRegistration() {
         return typeNameRegistration;
     }
 
-    public void setTypeNameRegistration(ArrayList<dataInfoPair> typeNameRegistration) {
+    public void setTypeNameRegistration(ArrayList<sourceDataInterface> typeNameRegistration) {
         this.typeNameRegistration = typeNameRegistration;
     }
 
