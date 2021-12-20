@@ -2,12 +2,14 @@ package com.example.microServiceNoSQl.Model;
 
 import com.example.microServiceNoSQl.Model.Interface.sourceDataInterface;
 import com.example.microServiceNoSQl.Model.Utilities.dataInfoPair;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
+@NoArgsConstructor
 public class topic {
 
     @Id

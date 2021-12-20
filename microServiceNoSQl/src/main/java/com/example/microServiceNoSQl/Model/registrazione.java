@@ -2,11 +2,13 @@ package com.example.microServiceNoSQl.Model;
 
 import com.example.microServiceNoSQl.Model.Interface.sourceDataInterface;
 import com.example.microServiceNoSQl.Model.Utilities.dataInfoPair;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
+@NoArgsConstructor
 public class registrazione {
 
     private LocalDate creationDate;

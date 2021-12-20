@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 /*
  * classe che fungera da controller per le chiamate del sito relative hai dati
@@ -32,12 +33,14 @@ public class dataController {
     MongoTemplate mongoTemplate;
 
 
+    //FUNZIA
     @PostMapping(value = "data")
     public List<userData> all(){
         System.out.println("all user");
         return dataRepository.findAll();
     }
 
+    //FUNZIA
     //aggiunge un nuovo documento per un utente
     @PostMapping(value = "/data/newuser")
     public ResponseEntity<String> create(@RequestBody String userId){
@@ -47,39 +50,23 @@ public class dataController {
         return new ResponseEntity<>("document Create", HttpStatus.OK);
     }
 
+    //FUNZIA
     //dato l'id dell'utente ritorna il suo documento
     @PostMapping(value = "/data/document")
     public ResponseEntity<userData> document(@RequestBody String userId){
         System.out.println("Return document");
-        Query query = new Query();
-        query.addCriteria(Criteria.where("idUser").is(userId));
-        List<userData> tmp = mongoTemplate.find(query,userData.class);
-        if(tmp.size() > 1){
-            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
-        }
-        if (tmp.isEmpty()){
-            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
-        }
-        userData a = tmp.get(0);
-        return new ResponseEntity<>(a, HttpStatus.OK);
+        Optional<userData> a = dataRepository.findStudentByIdUser(userId);
+        return new ResponseEntity<>(a.get(), HttpStatus.OK);
     }
 
 
     //aggiunge un nuovo documento per un utente
     @PostMapping(value = "/data/newTopic")
     public ResponseEntity<String> newTopic(@RequestBody newTopic val){
-        Query query = new Query();
-        query.addCriteria(Criteria.where("idUser").is(val.getId()));
-        List<userData> tmp = mongoTemplate.find(query,userData.class);
-        if(tmp.size() > 1){
-            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
-        }
-        if (tmp.isEmpty()){
-            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
-        }
-        userData a = tmp.get(0);
-        a.getTopicList().add(new topic(val.getName(), val.getDescription(), val.getColor(), val.getNameType()));
-        dataRepository.save(a);
+        Optional<userData> a = dataRepository.findStudentByIdUser(val.getId());
+        userData tmp = a.get();
+        tmp.getTopicList().add(new topic(val.getName(), val.getDescription(), val.getColor(), val.getNameType()));
+        dataRepository.save(tmp);
         return new ResponseEntity<>("topic add", HttpStatus.OK);
     }
     
