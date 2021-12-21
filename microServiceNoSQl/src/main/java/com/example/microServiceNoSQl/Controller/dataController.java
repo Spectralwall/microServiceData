@@ -60,6 +60,14 @@ public class dataController {
         return new ResponseEntity<>(a.get(), HttpStatus.OK);
     }
 
+    //dato l'id dell'utente ritorna il tutti i suoi topic
+    @PostMapping(value = "/data/topics")
+    public ResponseEntity<ArrayList<topic>> topicForUser(@RequestBody String userId){
+        System.out.println("Return topic for user :" +  userId);
+        Optional<userData> a = dataRepository.findStudentByIdUser(userId);
+        return new ResponseEntity<>(a.get().getTopicList(), HttpStatus.OK);
+    }
+
 
     //aggiunge un nuovo documento per un utente
     @PostMapping(value = "/data/newTopic")
