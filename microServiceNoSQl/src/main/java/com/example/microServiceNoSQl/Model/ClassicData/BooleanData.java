@@ -1,7 +1,9 @@
 package com.example.microServiceNoSQl.Model.ClassicData;
 
 import com.example.microServiceNoSQl.Model.Interface.sourceDataInterface;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 public class BooleanData implements sourceDataInterface {
 
     private Boolean val;

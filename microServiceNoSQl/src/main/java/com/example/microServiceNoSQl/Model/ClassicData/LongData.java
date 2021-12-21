@@ -1,8 +1,10 @@
 package com.example.microServiceNoSQl.Model.ClassicData;
 
 import com.example.microServiceNoSQl.Model.Interface.sourceDataInterface;
+import lombok.NoArgsConstructor;
 
 // classe pe trattare dati di tipo Long
+@NoArgsConstructor
 public class LongData implements sourceDataInterface {
 
     private Long val;

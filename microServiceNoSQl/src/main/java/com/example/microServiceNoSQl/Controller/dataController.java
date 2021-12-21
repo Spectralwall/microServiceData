@@ -1,7 +1,9 @@
 package com.example.microServiceNoSQl.Controller;
 
 
+import com.example.microServiceNoSQl.Model.Utilities.newRegistration;
 import com.example.microServiceNoSQl.Model.Utilities.newTopic;
+import com.example.microServiceNoSQl.Model.registrazione;
 import com.example.microServiceNoSQl.Model.topic;
 import com.example.microServiceNoSQl.Model.userData;
 import com.example.microServiceNoSQl.Repo.DataRepository;
@@ -15,6 +17,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,14 +37,12 @@ public class dataController {
     MongoTemplate mongoTemplate;
 
 
-    //FUNZIA
     @PostMapping(value = "data")
     public List<userData> all(){
         System.out.println("all user");
         return dataRepository.findAll();
     }
 
-    //FUNZIA
     //aggiunge un nuovo documento per un utente
     @PostMapping(value = "/data/newuser")
     public ResponseEntity<String> create(@RequestBody String userId){
@@ -50,7 +52,6 @@ public class dataController {
         return new ResponseEntity<>("document Create", HttpStatus.OK);
     }
 
-    //FUNZIA
     //dato l'id dell'utente ritorna il suo documento
     @PostMapping(value = "/data/document")
     public ResponseEntity<userData> document(@RequestBody String userId){
@@ -63,12 +64,24 @@ public class dataController {
     //aggiunge un nuovo documento per un utente
     @PostMapping(value = "/data/newTopic")
     public ResponseEntity<String> newTopic(@RequestBody newTopic val){
-        Optional<userData> a = dataRepository.findStudentByIdUser(val.getId());
-        userData tmp = a.get();
+        System.out.println("newTopic------");
+        userData tmp = dataRepository.findStudentByIdUser(val.getId()).get();
         tmp.getTopicList().add(new topic(val.getName(), val.getDescription(), val.getColor(), val.getNameType()));
         dataRepository.save(tmp);
         return new ResponseEntity<>("topic add", HttpStatus.OK);
     }
-    
+
+    @PostMapping(value="/data/newRegi")
+    public ResponseEntity<String> newRegistratio(@RequestBody newRegistration val){
+        System.out.println("newRegistration------");
+        userData tmp = dataRepository.findStudentByIdUser(val.getUserId()).get();
+        for(int a = 0; a<tmp.getTopicList().size(); ++a){
+            if(tmp.getTopicList().get(a).getName().equals(val.getTopic())){
+                tmp.getTopicList().get(a).getListRegistrazioni().add(new registrazione(val.trasformData(tmp.getTopicList().get(a))));
+            }
+        }
+        dataRepository.save(tmp);
+        return new ResponseEntity<>("registration add", HttpStatus.OK);
+    }
 
 }

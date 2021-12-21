@@ -1,8 +1,10 @@
 package com.example.microServiceNoSQl.Model.ClassicData;
 
 import com.example.microServiceNoSQl.Model.Interface.sourceDataInterface;
+import lombok.NoArgsConstructor;
 
 // classe pe trattare dati di tipo Byte
+@NoArgsConstructor
 public class ByteData implements sourceDataInterface {
 
     private Byte val;

@@ -7,13 +7,14 @@ package com.example.microServiceNoSQl.Model.Utilities;
 
 import com.example.microServiceNoSQl.Model.Interface.sourceDataInterface;
 
+
 public class dataInfoPair {
 
     private String name;
 
-    private sourceDataInterface data;
+    private String data;
 
-    public dataInfoPair(String name, sourceDataInterface type){
+    public dataInfoPair(String name, String type){
         this.name = name;
         this.data = type;
     }
@@ -24,11 +25,11 @@ public class dataInfoPair {
         return name;
     }
 
-    public sourceDataInterface getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(sourceDataInterface data) {
+    public void setData(String data) {
         this.data = data;
     }
 
