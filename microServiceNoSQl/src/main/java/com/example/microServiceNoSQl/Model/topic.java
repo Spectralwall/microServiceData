@@ -1,6 +1,7 @@
 package com.example.microServiceNoSQl.Model;
 
 import com.example.microServiceNoSQl.Model.Utilities.dataInfoPair;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
@@ -8,6 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 @NoArgsConstructor
+@Data
 public class topic {
 
     @Id

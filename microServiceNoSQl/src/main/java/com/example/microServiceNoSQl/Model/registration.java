@@ -13,6 +13,7 @@ import java.util.Date;
 
 
 @NoArgsConstructor
+@Data
 public class registration {
 
     @Id
@@ -47,11 +48,16 @@ public class registration {
         this.id = id;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
-        return "registrazione{" +
-                "creationDate=" + creationDate +
-                ", listaDati=" + typeNameRegistration +
+        return "registration{" +
+                "id=" + id +
+                ", creationDate=" + creationDate +
+                ", typeNameRegistration=" + typeNameRegistration +
                 '}';
     }
 }

@@ -1,6 +1,7 @@
 package com.example.microServiceNoSQl.Controller;
 
 
+import com.example.microServiceNoSQl.Model.Utilities.deleteReg;
 import com.example.microServiceNoSQl.Model.Utilities.deleteTopic;
 import com.example.microServiceNoSQl.Model.Utilities.newRegistration;
 import com.example.microServiceNoSQl.Model.Utilities.newTopic;
@@ -23,6 +24,7 @@ import java.util.Optional;
  * classe che fungera da controller per le chiamate del sito relative hai dati
  */
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v2")
 @NoArgsConstructor
@@ -78,6 +80,29 @@ public class dataController {
         }
         dataRepository.save(tmp);
         return new ResponseEntity<>("topic delete", HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/data/deledeReg")
+    public ResponseEntity<ArrayList<topic>> deleteReg(@RequestBody deleteReg val){
+        System.out.println("Delete Registration from topic :" +  val.getTopic() + "for userid :" + val.getIdUser());
+        userData tmp = dataRepository.findStudentByIdUser(val.getIdUser()).get();
+        ArrayList<topic> list = tmp.getTopicList();
+        for(int a=0; a<list.size(); ++a){
+            if(list.get(a).getName().equals(val.getTopic())){
+                ArrayList<registration> listReg = list.get(a).getListRegistrazioni();
+                for (int x=0; x<listReg.size(); ++x){
+                    if(listReg.get(x).getId() == val.getIdReg()){
+                        listReg.remove(x);
+                        list.get(a).setListRegistrazioni(listReg);
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+        tmp.setTopicList(list);
+        dataRepository.save(tmp);
+        return new ResponseEntity<>(dataRepository.findStudentByIdUser(val.getIdUser()).get().getTopicList(), HttpStatus.OK);
     }
 
     @PostMapping(value = "/data/changeNameTopic")
