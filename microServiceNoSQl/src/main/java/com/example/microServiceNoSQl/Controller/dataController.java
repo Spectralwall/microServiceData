@@ -81,7 +81,7 @@ public class dataController {
     }
 
     @PostMapping(value = "/data/changeNameTopic")
-    public ResponseEntity<String> changeNameTopic(@RequestBody deleteTopic val){
+    public ResponseEntity<ArrayList<topic>> changeNameTopic(@RequestBody deleteTopic val){
         System.out.println("Change name topic:" +  val.getName()+ "for userid :" + val.getId());
         userData tmp = dataRepository.findStudentByIdUser(val.getId()).get();
         for(int a=0; a<tmp.getTopicList().size(); ++a){
@@ -91,7 +91,7 @@ public class dataController {
             }
         }
         dataRepository.save(tmp);
-        return new ResponseEntity<>("topic update", HttpStatus.OK);
+        return new ResponseEntity<>(dataRepository.findStudentByIdUser(val.getId()).get().getTopicList(), HttpStatus.OK);
     }
 
 
