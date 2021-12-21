@@ -1,6 +1,7 @@
 package com.example.microServiceNoSQl.Controller;
 
 
+import com.example.microServiceNoSQl.Model.Utilities.deleteTopic;
 import com.example.microServiceNoSQl.Model.Utilities.newRegistration;
 import com.example.microServiceNoSQl.Model.Utilities.newTopic;
 import com.example.microServiceNoSQl.Model.registrazione;
@@ -67,6 +68,20 @@ public class dataController {
         System.out.println("Return topic for user :" +  userId);
         Optional<userData> a = dataRepository.findStudentByIdUser(userId);
         return new ResponseEntity<>(a.get().getTopicList(), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/data/deledeTopic")
+    public ResponseEntity<String> deleteTopic(@RequestBody deleteTopic val){
+        System.out.println("Delete Topic, name :" +  val.getName() + "for userid :" + val.getId());
+        userData tmp = dataRepository.findStudentByIdUser(val.getId()).get();
+        for(int a=0; a<tmp.getTopicList().size(); ++a){
+            if(tmp.getTopicList().get(a).getName().equals(val.getName())){
+                tmp.getTopicList().remove(a);
+                break;
+            }
+        }
+        dataRepository.save(tmp);
+        return new ResponseEntity<>("topic delete", HttpStatus.OK);
     }
 
 
