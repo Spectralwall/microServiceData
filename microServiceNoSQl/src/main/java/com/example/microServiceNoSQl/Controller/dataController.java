@@ -56,6 +56,7 @@ public class dataController {
     @PostMapping(value = "/data/document")
     public ResponseEntity<userData> document(@RequestBody String userId){
         System.out.println("Return document");
+        System.out.println(userId);
         Optional<userData> a = dataRepository.findStudentByIdUser(userId);
         return new ResponseEntity<>(a.get(), HttpStatus.OK);
     }
@@ -82,6 +83,7 @@ public class dataController {
     @PostMapping(value="/data/newRegi")
     public ResponseEntity<String> newRegistratio(@RequestBody newRegistration val){
         System.out.println("newRegistration------");
+        System.out.println(val);
         userData tmp = dataRepository.findStudentByIdUser(val.getUserId()).get();
         for(int a = 0; a<tmp.getTopicList().size(); ++a){
             if(tmp.getTopicList().get(a).getName().equals(val.getTopic())){

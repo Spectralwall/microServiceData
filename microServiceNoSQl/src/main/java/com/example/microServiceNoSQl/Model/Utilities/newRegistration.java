@@ -28,6 +28,15 @@ public class newRegistration {
         return userId;
     }
 
+    @Override
+    public String toString() {
+        return "newRegistration{" +
+                "userId='" + userId + '\'' +
+                ", topic='" + topic + '\'' +
+                ", dataList=" + dataList +
+                '}';
+    }
+
     public ArrayList<sourceDataInterface> trasformData(topic a) {
         ArrayList<dataInfoPair> tmp = a.getNameType();
         ArrayList<sourceDataInterface> result = new ArrayList<>();
@@ -39,12 +48,19 @@ public class newRegistration {
                     result.add(new StringData(this.getDataList().get(x)));
                     break;
 
-                case "Intero":
+                case "Integer Number":
                     result.add(new IntegerData(Integer.parseInt(this.getDataList().get(x))));
                     break;
 
-                case "Double":
+                case "Floating Point Number":
                     result.add(new DoubleData(Double.parseDouble(this.getDataList().get(x))));
+                    break;
+
+                case "Date":
+                    result.add(new StringData(this.getDataList().get(x)));
+                    break;
+
+                default:
                     break;
             }
             ++x;
