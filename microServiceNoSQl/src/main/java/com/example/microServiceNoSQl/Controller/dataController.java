@@ -4,21 +4,17 @@ package com.example.microServiceNoSQl.Controller;
 import com.example.microServiceNoSQl.Model.Utilities.deleteTopic;
 import com.example.microServiceNoSQl.Model.Utilities.newRegistration;
 import com.example.microServiceNoSQl.Model.Utilities.newTopic;
-import com.example.microServiceNoSQl.Model.registrazione;
+import com.example.microServiceNoSQl.Model.registration;
 import com.example.microServiceNoSQl.Model.topic;
 import com.example.microServiceNoSQl.Model.userData;
 import com.example.microServiceNoSQl.Repo.DataRepository;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -84,6 +80,20 @@ public class dataController {
         return new ResponseEntity<>("topic delete", HttpStatus.OK);
     }
 
+    @PostMapping(value = "/data/changeNameTopic")
+    public ResponseEntity<String> changeNameTopic(@RequestBody deleteTopic val){
+        System.out.println("Change name topic:" +  val.getName()+ "for userid :" + val.getId());
+        userData tmp = dataRepository.findStudentByIdUser(val.getId()).get();
+        for(int a=0; a<tmp.getTopicList().size(); ++a){
+            if(tmp.getTopicList().get(a).getName().equals(val.getName())){
+                tmp.getTopicList().get(a).setName(val.getNewName());
+                break;
+            }
+        }
+        dataRepository.save(tmp);
+        return new ResponseEntity<>("topic update", HttpStatus.OK);
+    }
+
 
     //aggiunge un nuovo documento per un utente
     @PostMapping(value = "/data/newTopic")
@@ -96,17 +106,24 @@ public class dataController {
     }
 
     @PostMapping(value="/data/newRegi")
-    public ResponseEntity<String> newRegistratio(@RequestBody newRegistration val){
+    public ResponseEntity<ArrayList<topic>> newRegistratio(@RequestBody newRegistration val){
         System.out.println("newRegistration------");
         System.out.println(val);
         userData tmp = dataRepository.findStudentByIdUser(val.getUserId()).get();
-        for(int a = 0; a<tmp.getTopicList().size(); ++a){
-            if(tmp.getTopicList().get(a).getName().equals(val.getTopic())){
-                tmp.getTopicList().get(a).getListRegistrazioni().add(new registrazione(val.trasformData(tmp.getTopicList().get(a))));
+        ArrayList<topic> list = tmp.getTopicList();
+        for(int a = 0; a<list.size(); ++a){
+            if(list.get(a).getName().equals(val.getTopic())){
+
+                Long spam = Long.valueOf(list.get(a).getNumberRecords()+1);
+                registration x = new registration(val.trasformData(list.get(a)));
+                x.setId(spam);
+                list.get(a).getListRegistrazioni().add(x);
+                list.get(a).setNumberRecords(spam);
             }
         }
+        tmp.setTopicList(list);
         dataRepository.save(tmp);
-        return new ResponseEntity<>("registration add", HttpStatus.OK);
+        return new ResponseEntity<>(dataRepository.findStudentByIdUser(val.getUserId()).get().getTopicList(), HttpStatus.OK);
     }
 
 }

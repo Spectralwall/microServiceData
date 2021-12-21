@@ -2,20 +2,27 @@ package com.example.microServiceNoSQl.Model;
 
 import com.example.microServiceNoSQl.Model.Interface.sourceDataInterface;
 import com.example.microServiceNoSQl.Model.Utilities.dataInfoPair;
+import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
+
 @NoArgsConstructor
-public class registrazione {
+public class registration {
+
+    @Id
+    private Long id;
 
     private LocalDate creationDate;
 
     private ArrayList<sourceDataInterface> typeNameRegistration;
 
-    public registrazione(ArrayList<sourceDataInterface> val){
+    public registration(ArrayList<sourceDataInterface> val){
         this.creationDate = LocalDate.now();
         this.typeNameRegistration = val;
     }
@@ -34,6 +41,10 @@ public class registrazione {
 
     public void setTypeNameRegistration(ArrayList<sourceDataInterface> typeNameRegistration) {
         this.typeNameRegistration = typeNameRegistration;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override

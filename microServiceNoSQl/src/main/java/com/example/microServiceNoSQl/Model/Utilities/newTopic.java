@@ -1,8 +1,5 @@
 package com.example.microServiceNoSQl.Model.Utilities;
 
-import com.example.microServiceNoSQl.Model.registrazione;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class newTopic {

@@ -1,13 +1,11 @@
 package com.example.microServiceNoSQl.Model;
 
-import com.example.microServiceNoSQl.Model.Interface.sourceDataInterface;
 import com.example.microServiceNoSQl.Model.Utilities.dataInfoPair;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 @NoArgsConstructor
 public class topic {
@@ -25,7 +23,9 @@ public class topic {
 
     private ArrayList<String> color;
 
-    private ArrayList<registrazione> listRegistrazioni;//lista di future registrazioni
+    private ArrayList<registration> listRegistrazioni;//lista di future registrazioni
+
+    private Long numberRecords;
 
     public topic(String name,String description, ArrayList<String> colors,ArrayList<dataInfoPair> nameType){
         this.name = name;
@@ -34,9 +34,10 @@ public class topic {
         this.nameType = nameType;
         this.color = colors;
         listRegistrazioni = new ArrayList<>();
+        this.numberRecords = Long.valueOf(0);
     }
 
-    public void setListRegistrazioni(ArrayList<registrazione> listRegistrazioni) {
+    public void setListRegistrazioni(ArrayList<registration> listRegistrazioni) {
         this.listRegistrazioni = listRegistrazioni;
     }
 
@@ -84,7 +85,7 @@ public class topic {
         return description;
     }
 
-    public ArrayList<registrazione> getListRegistrazioni() {
+    public ArrayList<registration> getListRegistrazioni() {
         return listRegistrazioni;
     }
 
@@ -92,6 +93,13 @@ public class topic {
         return name;
     }
 
+    public Long getNumberRecords() {
+        return numberRecords;
+    }
+
+    public void setNumberRecords(Long numberRecords) {
+        this.numberRecords = numberRecords;
+    }
 
     @Override
     public String toString() {
