@@ -139,7 +139,7 @@ public class dataController {
     public ResponseEntity<ArrayList<topic>> changeNameTopic(@RequestBody deleteTopic val){
         System.out.println("Change name topic:" +  val.getName()+ "for userid :" + val.getId());
         userData tmp = dataRepository.findStudentByIdUser(val.getId()).get();
-        if (topic.exist(tmp.getTopicList(),val.getName())) {
+        if (topic.exist(tmp.getTopicList(),val.getNewName())) {
             return new ResponseEntity<>(null, HttpStatus.CONFLICT);
         }
         for(int a=0; a<tmp.getTopicList().size(); ++a){
