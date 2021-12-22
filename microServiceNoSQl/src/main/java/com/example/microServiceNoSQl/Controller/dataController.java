@@ -121,6 +121,20 @@ public class dataController {
         return new ResponseEntity<>(val, HttpStatus.OK);
     }
 
+    @PostMapping(value = "/data/changSharedTopic")
+    public ResponseEntity<String> changeSharedTopic(@RequestBody deleteTopic val){
+        System.out.println("change value shared for topic :" +val.getName() + "for user :" + val.getId());
+        userData tmp = dataRepository.findStudentByIdUser(val.getId()).get();
+        for(int a=0; a<tmp.getTopicList().size();++a){
+            if(tmp.getTopicList().get(a).getName().equals(val.getName())){
+                Boolean x = tmp.getTopicList().get(a).getShared();
+                tmp.getTopicList().get(a).setShared(!x);
+            }
+        }
+        dataRepository.save(tmp);
+        return new ResponseEntity<>("change succes", HttpStatus.OK);
+    }
+
     @PostMapping(value = "/data/changeNameTopic")
     public ResponseEntity<ArrayList<topic>> changeNameTopic(@RequestBody deleteTopic val){
         System.out.println("Change name topic:" +  val.getName()+ "for userid :" + val.getId());
