@@ -105,6 +105,22 @@ public class dataController {
         return new ResponseEntity<>(dataRepository.findStudentByIdUser(val.getIdUser()).get().getTopicList(), HttpStatus.OK);
     }
 
+    @PostMapping(value = "/data/sharedTopic")
+    public ResponseEntity<ArrayList<topic>> sharedTopic(){
+        System.out.println("return All shared Topic");
+        List<userData> tmp = dataRepository.findAll();
+        ArrayList<topic> val = new ArrayList<>();
+        for(int a = 0; a<tmp.size();++a){
+            ArrayList<topic> tmp2 = tmp.get(a).getTopicList();
+            for(int b = 0; b<tmp2.size();++b){
+                if(tmp2.get(b).getShared()){
+                    val.add(tmp2.get(b));
+                }
+            }
+        }
+        return new ResponseEntity<>(val, HttpStatus.OK);
+    }
+
     @PostMapping(value = "/data/changeNameTopic")
     public ResponseEntity<ArrayList<topic>> changeNameTopic(@RequestBody deleteTopic val){
         System.out.println("Change name topic:" +  val.getName()+ "for userid :" + val.getId());
@@ -125,7 +141,7 @@ public class dataController {
     public ResponseEntity<String> newTopic(@RequestBody newTopic val){
         System.out.println("newTopic------");
         userData tmp = dataRepository.findStudentByIdUser(val.getId()).get();
-        tmp.getTopicList().add(new topic(val.getName(), val.getDescription(), val.getColor(), val.getNameType()));
+        tmp.getTopicList().add(new topic(val.getName(), val.getDescription(), val.getColor(), val.getNameType(),val.getShared()));
         dataRepository.save(tmp);
         return new ResponseEntity<>("topic add", HttpStatus.OK);
     }

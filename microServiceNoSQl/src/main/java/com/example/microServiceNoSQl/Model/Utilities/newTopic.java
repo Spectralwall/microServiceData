@@ -14,6 +14,13 @@ public class newTopic {
 
     private ArrayList<String> color;
 
+    private Boolean shared;
+
+
+    public Boolean getShared() {
+        return shared;
+    }
+
     public String getId() {
         return id;
     }

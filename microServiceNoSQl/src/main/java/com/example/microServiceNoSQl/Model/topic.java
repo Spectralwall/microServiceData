@@ -29,7 +29,9 @@ public class topic {
 
     private Long numberRecords;
 
-    public topic(String name,String description, ArrayList<String> colors,ArrayList<dataInfoPair> nameType){
+    private Boolean shared;
+
+    public topic(String name,String description, ArrayList<String> colors,ArrayList<dataInfoPair> nameType,Boolean shared){
         this.name = name;
         this.description = description;
         this.creationDate = LocalDate.now();
@@ -37,6 +39,7 @@ public class topic {
         this.color = colors;
         listRegistrazioni = new ArrayList<>();
         this.numberRecords = Long.valueOf(0);
+        this.shared = shared;
     }
 
     public void setListRegistrazioni(ArrayList<registration> listRegistrazioni) {
@@ -103,6 +106,14 @@ public class topic {
         this.numberRecords = numberRecords;
     }
 
+    public Boolean getShared() {
+        return shared;
+    }
+
+    public void setShared(Boolean shared) {
+        this.shared = shared;
+    }
+
     @Override
     public String toString() {
         return "topic{" +
@@ -113,6 +124,8 @@ public class topic {
                 ", nameType=" + nameType +
                 ", color=" + color +
                 ", listRegistrazioni=" + listRegistrazioni +
+                ", numberRecords=" + numberRecords +
+                ", shared=" + shared +
                 '}';
     }
 }
