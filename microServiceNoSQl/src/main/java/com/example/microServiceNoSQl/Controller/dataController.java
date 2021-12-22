@@ -68,7 +68,7 @@ public class dataController {
         return new ResponseEntity<>(a.get().getTopicList(), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/data/deledeTopic")
+    @PostMapping(value = "/data/deleteTopic")
     public ResponseEntity<String> deleteTopic(@RequestBody deleteTopic val){
         System.out.println("Delete Topic, name :" +  val.getName() + "for userid :" + val.getId());
         userData tmp = dataRepository.findStudentByIdUser(val.getId()).get();
@@ -82,7 +82,7 @@ public class dataController {
         return new ResponseEntity<>("topic delete", HttpStatus.OK);
     }
 
-    @PostMapping(value = "/data/deledeReg")
+    @PostMapping(value = "/data/deleteReg")
     public ResponseEntity<ArrayList<topic>> deleteReg(@RequestBody deleteReg val){
         System.out.println("Delete Registration from topic :" +  val.getTopic() + "for userid :" + val.getIdUser());
         userData tmp = dataRepository.findStudentByIdUser(val.getIdUser()).get();
