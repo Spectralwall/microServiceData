@@ -36,13 +36,19 @@ public class dataController {
     MongoTemplate mongoTemplate;
 
 
+    /*
+     * This metod return al userData in mongo database
+     */
     @PostMapping(value = "data")
     public List<userData> all(){
         System.out.println("all user");
         return dataRepository.findAll();
     }
 
-    //aggiunge un nuovo documento per un utente
+    /*
+     * Create a nre user
+     * TODO: fix this method whit RabbitMQ
+     */
     @PostMapping(value = "/data/newuser")
     public ResponseEntity<String> create(@RequestBody String userId){
         System.out.println("New user --------- document");
@@ -51,7 +57,9 @@ public class dataController {
         return new ResponseEntity<>("document Create", HttpStatus.OK);
     }
 
-    //dato l'id dell'utente ritorna il suo documento
+    /*
+     * This metod return al userData in mongo database
+     */
     @PostMapping(value = "/data/document")
     public ResponseEntity<userData> document(@RequestBody String userId){
         System.out.println("Return document");
@@ -60,7 +68,9 @@ public class dataController {
         return new ResponseEntity<>(a.get(), HttpStatus.OK);
     }
 
-    //dato l'id dell'utente ritorna il tutti i suoi topic
+    /*
+     * Return the topics for a id from user
+     */
     @PostMapping(value = "/data/topics")
     public ResponseEntity<ArrayList<topic>> topicForUser(@RequestBody String userId){
         System.out.println("Return topic for user :" +  userId);
