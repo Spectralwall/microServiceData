@@ -60,6 +60,9 @@ public class newRegistration {
                     result.add(new StringData(this.getDataList().get(x)));
                     break;
 
+                case "Hour":
+                    result.add(new StringData(this.getDataList().get(x)));
+                    break;
                 default:
                     break;
             }
