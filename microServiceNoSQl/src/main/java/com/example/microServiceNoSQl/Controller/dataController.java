@@ -139,6 +139,9 @@ public class dataController {
     public ResponseEntity<ArrayList<topic>> changeNameTopic(@RequestBody deleteTopic val){
         System.out.println("Change name topic:" +  val.getName()+ "for userid :" + val.getId());
         userData tmp = dataRepository.findStudentByIdUser(val.getId()).get();
+        if (topic.exist(tmp.getTopicList(),val.getName())) {
+            return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+        }
         for(int a=0; a<tmp.getTopicList().size(); ++a){
             if(tmp.getTopicList().get(a).getName().equals(val.getName())){
                 tmp.getTopicList().get(a).setName(val.getNewName());
@@ -155,7 +158,10 @@ public class dataController {
     public ResponseEntity<String> newTopic(@RequestBody newTopic val){
         System.out.println("newTopic------");
         userData tmp = dataRepository.findStudentByIdUser(val.getId()).get();
-        tmp.getTopicList().add(new topic(val.getName(), val.getDescription(), val.getColor(), val.getNameType(),val.getShared()));
+        if (topic.exist(tmp.getTopicList(),val.getName())) {
+            return new ResponseEntity<>("name of topic Taken", HttpStatus.CONFLICT);
+        }
+        tmp.getTopicList().add(new topic(val.getName(), val.getDescription(), val.getColor(), val.getNameType(),false));
         dataRepository.save(tmp);
         return new ResponseEntity<>("topic add", HttpStatus.OK);
     }

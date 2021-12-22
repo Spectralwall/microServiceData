@@ -128,4 +128,16 @@ public class topic {
                 ", shared=" + shared +
                 '}';
     }
+
+
+    //se ritorna true il nome per il topic é gia preso
+    public static boolean exist(ArrayList<topic> topic,String name){
+        for(int a=0;a<topic.size();++a){
+            if (topic.get(a).getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
