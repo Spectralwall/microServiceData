@@ -75,10 +75,10 @@ public class dataController {
      * Return the topics for a id from user
      */
     @PostMapping(value = "/data/topics")
-    public ResponseEntity<ArrayList<topic>> topicForUser(@RequestBody String userId){
-        System.out.println("Return topic for user :" +  userId);
-        Optional<userData> a = dataRepository.findStudentByIdUser(userId);
-        return new ResponseEntity<>(a.get().getTopicList(), HttpStatus.OK);
+    public ResponseEntity<userData> topicForUser(@RequestBody userData user){
+        System.out.println("Return topic for user :" +  user.getIdUser());
+        Optional<userData> a = dataRepository.findStudentByIdUser(user.getIdUser());
+        return new ResponseEntity<>(a.get(), HttpStatus.OK);
     }
 
     @PostMapping(value = "/data/deleteTopic")
@@ -168,15 +168,15 @@ public class dataController {
 
     //aggiunge un nuovo documento per un utente
     @PostMapping(value = "/data/newTopic")
-    public ResponseEntity<String> newTopic(@RequestBody newTopic val){
+    public ResponseEntity<newTopic> newTopic(@RequestBody newTopic val){
         System.out.println("newTopic------");
         userData tmp = dataRepository.findStudentByIdUser(val.getId()).get();
         if (topic.exist(tmp.getTopicList(),val.getName())) {
-            return new ResponseEntity<>("name of topic Taken", HttpStatus.CONFLICT);
+            return new ResponseEntity<>(null, HttpStatus.CONFLICT);
         }
         tmp.getTopicList().add(new topic(val.getName(), val.getDescription(), val.getColor(), val.getNameType(),false));
         dataRepository.save(tmp);
-        return new ResponseEntity<>("topic add", HttpStatus.OK);
+        return new ResponseEntity<>(val, HttpStatus.OK);
     }
 
     @PostMapping(value="/data/newRegi")
