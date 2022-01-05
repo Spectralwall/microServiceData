@@ -14,9 +14,12 @@ services:
       - MONGO_INITDB_DATABASE=dataHub
     networks:
       - MONGO
+      - BACKEND
 
 volumes:
   data : {}
 networks:
     MONGO:
       name: MONGO
+    BACKEND:
+      name: BACKEND
