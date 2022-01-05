@@ -64,10 +64,10 @@ public class dataController {
      * This metod return al userData in mongo database
      */
     @PostMapping(value = "/data/document")
-    public ResponseEntity<userData> document(@RequestBody String userId){
+    public ResponseEntity<userData> document(@RequestBody userData user){
         System.out.println("Return document");
-        System.out.println(userId);
-        Optional<userData> a = dataRepository.findStudentByIdUser(userId);
+        System.out.println(user.getIdUser());
+        Optional<userData> a = dataRepository.findStudentByIdUser(user.getIdUser());
         return new ResponseEntity<>(a.get(), HttpStatus.OK);
     }
 
