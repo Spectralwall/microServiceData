@@ -50,11 +50,14 @@ public class dataController {
      * TODO: fix this method whit RabbitMQ
      */
     @PostMapping(value = "/data/newuser")
-    public ResponseEntity<String> create(@RequestBody String userId){
+    public ResponseEntity<userData> create(@RequestBody userData user){
         System.out.println("New user --------- document");
-        userData newUser = new userData(userId);
+        userData newUser = new userData(user.getIdUser());
         dataRepository.save(newUser);
-        return new ResponseEntity<>("document Create", HttpStatus.OK);
+
+        System.out.println("Return topic for user :" +  user.getIdUser());
+        Optional<userData> a = dataRepository.findStudentByIdUser(user.getIdUser());
+        return new ResponseEntity<>(a.get(), HttpStatus.OK);
     }
 
     /*
