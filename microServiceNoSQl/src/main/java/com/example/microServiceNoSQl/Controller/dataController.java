@@ -98,11 +98,14 @@ public class dataController {
             }
         }
         dataRepository.save(tmp);
-        return new ResponseEntity<>("topic delete", HttpStatus.OK);
+        Gson gson = new Gson();
+        String userJson = gson.toJson(tmp);
+        System.out.println(userJson);
+        return new ResponseEntity<>(userJson, HttpStatus.OK);
     }
 
     @PostMapping(value = "/data/deleteReg")
-    public ResponseEntity<ArrayList<topic>> deleteReg(@RequestBody deleteReg val){
+    public ResponseEntity<String> deleteReg(@RequestBody deleteReg val){
         System.out.println("Delete Registration from topic :" +  val.getTopic() + "for userid :" + val.getIdUser());
         userData tmp = dataRepository.findStudentByIdUser(val.getIdUser()).get();
         ArrayList<topic> list = tmp.getTopicList();
@@ -121,11 +124,14 @@ public class dataController {
         }
         tmp.setTopicList(list);
         dataRepository.save(tmp);
-        return new ResponseEntity<>(dataRepository.findStudentByIdUser(val.getIdUser()).get().getTopicList(), HttpStatus.OK);
+        Gson gson = new Gson();
+        String userJson = gson.toJson(tmp);
+        System.out.println(userJson);
+        return new ResponseEntity<>(userJson, HttpStatus.OK);
     }
 
     @PostMapping(value = "/data/sharedTopic")
-    public ResponseEntity<ArrayList<topic>> sharedTopic(){
+    public ResponseEntity<String> sharedTopic(){
         System.out.println("return All shared Topic");
         List<userData> tmp = dataRepository.findAll();
         ArrayList<topic> val = new ArrayList<>();
@@ -137,7 +143,10 @@ public class dataController {
                 }
             }
         }
-        return new ResponseEntity<>(val, HttpStatus.OK);
+        Gson gson = new Gson();
+        String userJson = gson.toJson(val);
+        System.out.println(userJson);
+        return new ResponseEntity<>(userJson, HttpStatus.OK);
     }
 
     @PostMapping(value = "/data/changSharedTopic")
@@ -151,11 +160,14 @@ public class dataController {
             }
         }
         dataRepository.save(tmp);
-        return new ResponseEntity<>("change succes", HttpStatus.OK);
+        Gson gson = new Gson();
+        String userJson = gson.toJson(tmp);
+        System.out.println(userJson);
+        return new ResponseEntity<>(userJson, HttpStatus.OK);
     }
 
     @PostMapping(value = "/data/changeNameTopic")
-    public ResponseEntity<ArrayList<topic>> changeNameTopic(@RequestBody deleteTopic val){
+    public ResponseEntity<String> changeNameTopic(@RequestBody deleteTopic val){
         System.out.println("Change name topic:" +  val.getName()+ "for userid :" + val.getId());
         userData tmp = dataRepository.findStudentByIdUser(val.getId()).get();
         if (topic.exist(tmp.getTopicList(),val.getNewName())) {
@@ -168,7 +180,10 @@ public class dataController {
             }
         }
         dataRepository.save(tmp);
-        return new ResponseEntity<>(dataRepository.findStudentByIdUser(val.getId()).get().getTopicList(), HttpStatus.OK);
+        Gson gson = new Gson();
+        String userJson = gson.toJson(tmp);
+        System.out.println(userJson);
+        return new ResponseEntity<>(userJson, HttpStatus.OK);
     }
 
 
