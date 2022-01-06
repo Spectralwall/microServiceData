@@ -1,10 +1,7 @@
 package com.example.microServiceNoSQl.Controller;
 
 
-import com.example.microServiceNoSQl.Model.Utilities.deleteReg;
-import com.example.microServiceNoSQl.Model.Utilities.deleteTopic;
-import com.example.microServiceNoSQl.Model.Utilities.newRegistration;
-import com.example.microServiceNoSQl.Model.Utilities.newTopic;
+import com.example.microServiceNoSQl.Model.Utilities.*;
 import com.example.microServiceNoSQl.Model.registration;
 import com.example.microServiceNoSQl.Model.topic;
 import com.example.microServiceNoSQl.Model.userData;
@@ -65,11 +62,15 @@ public class dataController {
      * This metod return al userData in mongo database
      */
     @PostMapping(value = "/data/document")
-    public ResponseEntity<userData> document(@RequestBody userData user){
+    public ResponseEntity<String> document(@RequestBody User user){
         System.out.println("Return document");
-        System.out.println(user.getIdUser());
-        Optional<userData> a = dataRepository.findStudentByIdUser(user.getIdUser());
-        return new ResponseEntity<>(a.get(), HttpStatus.OK);
+        System.out.println(String.valueOf(user.getId()));
+        Optional<userData> a = dataRepository.findStudentByIdUser(String.valueOf(user.getId()));
+        UserAndData userAndData = new UserAndData(user,a.get());
+        Gson gson = new Gson();
+        String userJson = gson.toJson(userAndData);
+        System.out.println(userJson);
+        return new ResponseEntity<>(userJson, HttpStatus.OK);
     }
 
     /*
@@ -173,7 +174,7 @@ public class dataController {
 
     //aggiunge un nuovo documento per un utente
     @PostMapping(value = "/data/newTopic")
-    public ResponseEntity<newTopic> newTopic(@RequestBody newTopic val){
+    public ResponseEntity<String> newTopic(@RequestBody newTopic val){
         System.out.println("newTopic------");
         userData tmp = dataRepository.findStudentByIdUser(val.getId()).get();
         if (topic.exist(tmp.getTopicList(),val.getName())) {
@@ -181,11 +182,14 @@ public class dataController {
         }
         tmp.getTopicList().add(new topic(val.getName(), val.getDescription(), val.getColor(), val.getNameType(),false));
         dataRepository.save(tmp);
-        return new ResponseEntity<>(val, HttpStatus.OK);
+        Gson gson = new Gson();
+        String userJson = gson.toJson(tmp);
+        System.out.println(userJson);
+        return new ResponseEntity<>(userJson, HttpStatus.OK);
     }
 
     @PostMapping(value="/data/newRegi")
-    public ResponseEntity<newRegistration> newRegistratio(@RequestBody newRegistration val){
+    public ResponseEntity<String> newRegistratio(@RequestBody newRegistration val){
         System.out.println("newRegistration------");
         System.out.println(val);
         userData tmp = dataRepository.findStudentByIdUser(val.getUserId()).get();
@@ -201,7 +205,10 @@ public class dataController {
         }
         tmp.setTopicList(list);
         dataRepository.save(tmp);
-        return new ResponseEntity<>(val, HttpStatus.OK);
+        Gson gson = new Gson();
+        String userJson = gson.toJson(tmp);
+        System.out.println(userJson);
+        return new ResponseEntity<>(userJson, HttpStatus.OK);
     }
 
 }
