@@ -3,9 +3,11 @@ package com.example.microServiceNoSQl.Model.ClassicData;
 import com.example.microServiceNoSQl.Model.Interface.sourceDataInterface;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 // classe pe trattare dati di tipo float
 @NoArgsConstructor
-public class ShortData implements sourceDataInterface {
+public class ShortData implements sourceDataInterface, Serializable {
 
     private Short val;
 

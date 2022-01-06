@@ -9,6 +9,7 @@ import com.example.microServiceNoSQl.Model.registration;
 import com.example.microServiceNoSQl.Model.topic;
 import com.example.microServiceNoSQl.Model.userData;
 import com.example.microServiceNoSQl.Repo.DataRepository;
+import com.google.gson.Gson;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -75,10 +76,14 @@ public class dataController {
      * Return the topics for a id from user
      */
     @PostMapping(value = "/data/topics")
-    public ResponseEntity<userData> topicForUser(@RequestBody userData user){
+    public ResponseEntity<String> topicForUser(@RequestBody userData user){
         System.out.println("Return topic for user :" +  user.getIdUser());
         Optional<userData> a = dataRepository.findStudentByIdUser(user.getIdUser());
-        return new ResponseEntity<>(a.get(), HttpStatus.OK);
+        System.out.println("topic :" +  user.getIdUser());
+        Gson gson = new Gson();
+        String userJson = gson.toJson(a.get());
+        System.out.println(userJson);
+        return new ResponseEntity<>(userJson, HttpStatus.OK);
     }
 
     @PostMapping(value = "/data/deleteTopic")
@@ -180,14 +185,13 @@ public class dataController {
     }
 
     @PostMapping(value="/data/newRegi")
-    public ResponseEntity<ArrayList<topic>> newRegistratio(@RequestBody newRegistration val){
+    public ResponseEntity<newRegistration> newRegistratio(@RequestBody newRegistration val){
         System.out.println("newRegistration------");
         System.out.println(val);
         userData tmp = dataRepository.findStudentByIdUser(val.getUserId()).get();
         ArrayList<topic> list = tmp.getTopicList();
         for(int a = 0; a<list.size(); ++a){
             if(list.get(a).getName().equals(val.getTopic())){
-
                 Long spam = Long.valueOf(list.get(a).getNumberRecords()+1);
                 registration x = new registration(val.trasformData(list.get(a)));
                 x.setId(spam);
@@ -197,7 +201,7 @@ public class dataController {
         }
         tmp.setTopicList(list);
         dataRepository.save(tmp);
-        return new ResponseEntity<>(dataRepository.findStudentByIdUser(val.getUserId()).get().getTopicList(), HttpStatus.OK);
+        return new ResponseEntity<>(val, HttpStatus.OK);
     }
 
 }

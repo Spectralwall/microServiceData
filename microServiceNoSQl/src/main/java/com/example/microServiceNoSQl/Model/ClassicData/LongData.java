@@ -3,9 +3,11 @@ package com.example.microServiceNoSQl.Model.ClassicData;
 import com.example.microServiceNoSQl.Model.Interface.sourceDataInterface;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 // classe pe trattare dati di tipo Long
 @NoArgsConstructor
-public class LongData implements sourceDataInterface {
+public class LongData implements sourceDataInterface, Serializable {
 
     private Long val;
 

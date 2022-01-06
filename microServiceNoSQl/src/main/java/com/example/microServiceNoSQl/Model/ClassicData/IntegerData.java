@@ -3,9 +3,11 @@ package com.example.microServiceNoSQl.Model.ClassicData;
 import com.example.microServiceNoSQl.Model.Interface.sourceDataInterface;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 // classe pe trattare dati di tipo integer
 @NoArgsConstructor
-public class IntegerData implements sourceDataInterface {
+public class IntegerData implements sourceDataInterface, Serializable {
 
     //come attributo abbiamo un Integer ovvero la classe wrapper di int
     //cosi possimo sfruttare tutti i supi metodi

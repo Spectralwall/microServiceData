@@ -3,9 +3,11 @@ package com.example.microServiceNoSQl.Model.ClassicData;
 import com.example.microServiceNoSQl.Model.Interface.sourceDataInterface;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 // classe pe trattare dati di tipo Byte
 @NoArgsConstructor
-public class ByteData implements sourceDataInterface {
+public class ByteData implements sourceDataInterface, Serializable {
 
     private Byte val;
 

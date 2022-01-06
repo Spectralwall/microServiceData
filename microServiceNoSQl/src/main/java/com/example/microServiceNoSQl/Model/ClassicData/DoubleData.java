@@ -3,9 +3,11 @@ package com.example.microServiceNoSQl.Model.ClassicData;
 import com.example.microServiceNoSQl.Model.Interface.sourceDataInterface;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 // classe pe trattare dati di tipo double
 @NoArgsConstructor
-public class DoubleData implements sourceDataInterface {
+public class DoubleData implements sourceDataInterface, Serializable {
 
     private Double val;
 

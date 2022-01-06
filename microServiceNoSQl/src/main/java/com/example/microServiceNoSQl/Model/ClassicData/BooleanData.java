@@ -3,8 +3,10 @@ package com.example.microServiceNoSQl.Model.ClassicData;
 import com.example.microServiceNoSQl.Model.Interface.sourceDataInterface;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @NoArgsConstructor
-public class BooleanData implements sourceDataInterface {
+public class BooleanData implements sourceDataInterface, Serializable {
 
     private Boolean val;
 
