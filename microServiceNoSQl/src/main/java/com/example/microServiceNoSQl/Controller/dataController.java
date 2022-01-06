@@ -226,4 +226,13 @@ public class dataController {
         return new ResponseEntity<>(userJson, HttpStatus.OK);
     }
 
+
+    @PostMapping(value = "/data/deleteUser")
+    public ResponseEntity<String> deleteUser(@RequestBody User user){
+        System.out.println("Delete data for user :" + user.getEmail());
+        userData tmp = dataRepository.findStudentByIdUser(String.valueOf(user.getId())).get();
+        dataRepository.delete(tmp);
+        return new ResponseEntity<>("data delete", HttpStatus.OK);
+    }
+
 }
