@@ -1,8 +1,6 @@
 package com.example.microServiceNoSQl.Model.Utilities;
 
-import java.io.Serializable;
-
-public class User implements Serializable {
+public class User {
 
     private long id;
 
@@ -14,16 +12,14 @@ public class User implements Serializable {
 
     private String password;
 
-    public User(String name, String surname, String email, String password){
+    public User(String name,String surname, String email, String password){
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
     }
 
-    public User() {
-
-    }
+    public User() {}
 
     public long getId() {
         return id;

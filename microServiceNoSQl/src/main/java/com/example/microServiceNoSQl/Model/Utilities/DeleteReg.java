@@ -1,6 +1,6 @@
 package com.example.microServiceNoSQl.Model.Utilities;
 
-public class deleteReg {
+public class DeleteReg {
 
     private String idUser;
 

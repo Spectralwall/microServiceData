@@ -1,13 +1,12 @@
 package com.example.microServiceNoSQl.Model.ClassicData;
 
-import com.example.microServiceNoSQl.Model.Interface.sourceDataInterface;
+import com.example.microServiceNoSQl.Model.Interface.SourceDataInterface;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
-// classe pe trattare dati di tipo Long
 @NoArgsConstructor
-public class LongData implements sourceDataInterface, Serializable {
+public class LongData implements SourceDataInterface {
 
     private Long val;
 
@@ -28,5 +27,32 @@ public class LongData implements sourceDataInterface, Serializable {
     @Override
     public String toString() {
         return val.toString();
+    }
+
+    @JsonCreator
+    public LongData(@JsonProperty("val")Long val) {
+        this.val = val;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean res = true;
+
+        if((obj != null) && (obj.getClass().equals(this.getClass()))) {
+            LongData castedObj = (LongData) obj;
+
+            //check val
+            if((val != null) && (castedObj.getData() != null)) {
+                if(!val.equals(castedObj.getData())) {
+                    res = false;
+                }
+            } else if(!((val == null) && (castedObj.getData() == null))) {
+                res = false;
+            }
+        } else {
+            res = false;
+        }
+
+        return res;
     }
 }

@@ -1,7 +1,6 @@
 package com.example.microServiceNoSQl.Model.Utilities;
 
-public class deleteTopic {
-
+public class DeleteTopic {
     private String id;
 
     private String name;

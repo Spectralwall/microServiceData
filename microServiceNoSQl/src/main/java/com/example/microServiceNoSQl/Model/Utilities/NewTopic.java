@@ -2,7 +2,7 @@ package com.example.microServiceNoSQl.Model.Utilities;
 
 import java.util.ArrayList;
 
-public class newTopic {
+public class NewTopic {
 
     private String id;
 
@@ -10,7 +10,7 @@ public class newTopic {
 
     private String description;
 
-    private ArrayList<dataInfoPair> nameType;
+    private ArrayList<DataInfoPair> nameType;
 
     private ArrayList<String> color;
 
@@ -33,7 +33,7 @@ public class newTopic {
         return color;
     }
 
-    public ArrayList<dataInfoPair> getNameType() {
+    public ArrayList<DataInfoPair> getNameType() {
         return nameType;
     }
 

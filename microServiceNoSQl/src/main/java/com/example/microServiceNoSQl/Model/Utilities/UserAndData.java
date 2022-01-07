@@ -1,22 +1,18 @@
 package com.example.microServiceNoSQl.Model.Utilities;
 
-import com.example.microServiceNoSQl.Model.userData;
-
-import java.io.Serializable;
-
-public class UserAndData implements Serializable {
+public class UserAndData {
 
     private User userInformation;
-    private userData dataInformation;
+    private UserData dataInformation;
 
-    public UserAndData(User user, userData userData){
+    public UserAndData(User user, UserData userData){
         this.dataInformation = userData;
         this.userInformation = user;
     }
 
 
 
-    public void setDataInformation(userData dataInformation) {
+    public void setDataInformation(UserData dataInformation) {
         this.dataInformation = dataInformation;
     }
 
@@ -24,7 +20,7 @@ public class UserAndData implements Serializable {
         return userInformation;
     }
 
-    public userData getDataInformation() {
+    public UserData getDataInformation() {
         return dataInformation;
     }
 
@@ -32,4 +28,33 @@ public class UserAndData implements Serializable {
         this.userInformation = userInformation;
     }
 
+    public boolean equals(Object obj) {
+        boolean res = true;
+
+        if((obj != null) && (obj.getClass().equals(this.getClass()))) {
+            UserAndData castedObj = (UserAndData) obj;
+
+            //check userInformation
+            if((userInformation != null) && (castedObj.getUserInformation() != null)) {
+                if(!userInformation.equals(castedObj.getUserInformation())) {
+                    res = false;
+                }
+            } else if(!((userInformation == null) && (castedObj.getUserInformation() == null))) {
+                res = false;
+            }
+
+            //check dataInformation
+            if((dataInformation != null) && (castedObj.getDataInformation() != null)) {
+                if(!dataInformation.equals((castedObj.getDataInformation()))) {
+                    res = false;
+                }
+            } else if(!((dataInformation == null) && (castedObj.getDataInformation() == null))) {
+                res = false;
+            }
+        } else {
+            res = false;
+        }
+
+        return res;
+    }
 }
