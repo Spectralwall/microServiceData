@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
 import java.time.LocalDate;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
         include = JsonTypeInfo.As.PROPERTY,
         property = "type")
 @Data
+@NoArgsConstructor
 public class Topic {
     @Id
     private Long id;

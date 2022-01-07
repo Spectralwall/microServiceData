@@ -1,5 +1,8 @@
 package com.example.microServiceNoSQl.Model.Utilities;
 
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
 public class UserAndData {
 
     private User userInformation;

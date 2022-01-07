@@ -5,6 +5,7 @@ package com.example.microServiceNoSQl.Model.Utilities;
  * durante la registrazione di un  nuovo topic
  */
 
+
 public class DataInfoPair {
 
     private String name;

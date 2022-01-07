@@ -3,6 +3,8 @@ package com.example.microServiceNoSQl.Controller;
 
 import com.example.microServiceNoSQl.Model.Utilities.*;
 import com.example.microServiceNoSQl.Repo.DataRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.gson.Gson;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -64,10 +67,18 @@ public class dataController {
         System.out.println(String.valueOf(user.getId()));
         Optional<UserData> a = dataRepository.findStudentByIdUser(String.valueOf(user.getId()));
         UserAndData userAndData = new UserAndData(user,a.get());
-        Gson gson = new Gson();
-        String userJson = gson.toJson(userAndData);
-        System.out.println(userJson);
-        return new ResponseEntity<>(userJson, HttpStatus.OK);
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        String jsonString = null;
+        try {
+            jsonString = mapper.writeValueAsString(userAndData);
+            System.out.println(jsonString);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(jsonString, HttpStatus.OK);
     }
 
     /*
@@ -78,10 +89,18 @@ public class dataController {
         System.out.println("Return topic for user :" +  user.getIdUser());
         Optional<UserData> a = dataRepository.findStudentByIdUser(user.getIdUser());
         System.out.println("topic :" +  user.getIdUser());
-        Gson gson = new Gson();
-        String userJson = gson.toJson(a.get());
-        System.out.println(userJson);
-        return new ResponseEntity<>(userJson, HttpStatus.OK);
+        System.out.println(a.get());
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        String jsonString = null;
+        try {
+            jsonString = mapper.writeValueAsString(a.get());
+            System.out.println(jsonString);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(jsonString, HttpStatus.OK);
     }
 
     @PostMapping(value = "/data/deleteTopic")
@@ -95,10 +114,17 @@ public class dataController {
             }
         }
         dataRepository.save(tmp);
-        Gson gson = new Gson();
-        String userJson = gson.toJson(tmp);
-        System.out.println(userJson);
-        return new ResponseEntity<>(userJson, HttpStatus.OK);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        String jsonString = null;
+        try {
+            jsonString = mapper.writeValueAsString(tmp);
+            System.out.println(jsonString);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(jsonString, HttpStatus.OK);
     }
 
     @PostMapping(value = "/data/deleteReg")
@@ -121,10 +147,17 @@ public class dataController {
         }
         tmp.setTopicList(list);
         dataRepository.save(tmp);
-        Gson gson = new Gson();
-        String userJson = gson.toJson(tmp);
-        System.out.println(userJson);
-        return new ResponseEntity<>(userJson, HttpStatus.OK);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        String jsonString = null;
+        try {
+            jsonString = mapper.writeValueAsString(tmp);
+            System.out.println(jsonString);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(jsonString, HttpStatus.OK);
     }
 
     @PostMapping(value = "/data/sharedTopic")
@@ -140,10 +173,17 @@ public class dataController {
                 }
             }
         }
-        Gson gson = new Gson();
-        String userJson = gson.toJson(val);
-        System.out.println(userJson);
-        return new ResponseEntity<>(userJson, HttpStatus.OK);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        String jsonString = null;
+        try {
+            jsonString = mapper.writeValueAsString(val);
+            System.out.println(jsonString);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(jsonString, HttpStatus.OK);
     }
 
     @PostMapping(value = "/data/changSharedTopic")
@@ -157,17 +197,24 @@ public class dataController {
             }
         }
         dataRepository.save(tmp);
-        Gson gson = new Gson();
-        String userJson = gson.toJson(tmp);
-        System.out.println(userJson);
-        return new ResponseEntity<>(userJson, HttpStatus.OK);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        String jsonString = null;
+        try {
+            jsonString = mapper.writeValueAsString(tmp);
+            System.out.println(jsonString);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(jsonString, HttpStatus.OK);
     }
 
     @PostMapping(value = "/data/changeNameTopic")
     public ResponseEntity<String> changeNameTopic(@RequestBody DeleteTopic val){
         System.out.println("Change name topic:" +  val.getName()+ "for userid :" + val.getId());
         UserData tmp = dataRepository.findStudentByIdUser(val.getId()).get();
-        if (Topic.exist(tmp.getTopicList(),val.getNewName())) {
+        if (Topic .exist(tmp.getTopicList(),val.getNewName())) {
             return new ResponseEntity<>(null, HttpStatus.CONFLICT);
         }
         for(int a=0; a<tmp.getTopicList().size(); ++a){
@@ -177,10 +224,17 @@ public class dataController {
             }
         }
         dataRepository.save(tmp);
-        Gson gson = new Gson();
-        String userJson = gson.toJson(tmp);
-        System.out.println(userJson);
-        return new ResponseEntity<>(userJson, HttpStatus.OK);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        String jsonString = null;
+        try {
+            jsonString = mapper.writeValueAsString(tmp);
+            System.out.println(jsonString);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(jsonString, HttpStatus.OK);
     }
 
 
@@ -194,10 +248,17 @@ public class dataController {
         }
         tmp.getTopicList().add(new Topic(val.getName(), val.getDescription(), val.getColor(), val.getNameType(),false));
         dataRepository.save(tmp);
-        Gson gson = new Gson();
-        String userJson = gson.toJson(tmp);
-        System.out.println(userJson);
-        return new ResponseEntity<>(userJson, HttpStatus.OK);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        String jsonString = null;
+        try {
+            jsonString = mapper.writeValueAsString(tmp);
+            System.out.println(jsonString);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(jsonString, HttpStatus.OK);
     }
 
     @PostMapping(value="/data/newRegi")
@@ -217,10 +278,17 @@ public class dataController {
         }
         tmp.setTopicList(list);
         dataRepository.save(tmp);
-        Gson gson = new Gson();
-        String userJson = gson.toJson(tmp);
-        System.out.println(userJson);
-        return new ResponseEntity<>(userJson, HttpStatus.OK);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        String jsonString = null;
+        try {
+            jsonString = mapper.writeValueAsString(tmp);
+            System.out.println(jsonString);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(jsonString, HttpStatus.OK);
     }
 
 

@@ -12,12 +12,14 @@ package com.example.microServiceNoSQl.Model.Utilities;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
         property = "type")
+@NoArgsConstructor
 public class UserData {
     private String id;
 
