@@ -1,6 +1,7 @@
 package com.example.microServiceNoSQl.Controller;
 
 
+import com.example.microServiceNoSQl.Model.ClassicData.TopicList;
 import com.example.microServiceNoSQl.Model.Utilities.*;
 import com.example.microServiceNoSQl.Repo.DataRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -173,11 +174,14 @@ public class dataController {
                 }
             }
         }
+
+        TopicList sharedTopicList = new TopicList(val);
+
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         String jsonString = null;
         try {
-            jsonString = mapper.writeValueAsString(val);
+            jsonString = mapper.writeValueAsString(sharedTopicList);
             System.out.println(jsonString);
         } catch (IOException e) {
             // TODO Auto-generated catch block
