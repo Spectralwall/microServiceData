@@ -1,6 +1,7 @@
 package com.example.microServiceNoSQl.Model.Utilities;
 
 import com.example.microServiceNoSQl.Model.ClassicData.DoubleData;
+import com.example.microServiceNoSQl.Model.ClassicData.FloatData;
 import com.example.microServiceNoSQl.Model.ClassicData.IntegerData;
 import com.example.microServiceNoSQl.Model.ClassicData.StringData;
 import com.example.microServiceNoSQl.Model.Interface.SourceDataInterface;
@@ -57,7 +58,7 @@ public class NewRegistration {
                     break;
 
                 case "Floating Point Number":
-                    result.add(new DoubleData(Double.parseDouble(this.getDataList().get(x))));
+
                     break;
 
                 case "Date":
