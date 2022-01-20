@@ -58,7 +58,7 @@ public class NewRegistration {
                     break;
 
                 case "Floating Point Number":
-
+                    result.add(new FloatData(Float.parseFloat(this.getDataList().get(x))));
                     break;
 
                 case "Date":
